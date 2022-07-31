@@ -1,17 +1,45 @@
+// import libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import "./index.css"
+import BubbleSort from './algorithms/bubbleSort';
+import Navbar from './Navbar';
+import { generateArr } from './algorithms/helpers';
+// function debounce(callback, time){
+//   let t;
+//   clearTimeout(t);
+//   t = setTimeout(()=>callback,time)
+//   return callback;
+// }
+let debounce = (callback,delay = 500)=>{
+  let t;
+  return ()=>{
+    clearTimeout(t);
+        t = setTimeout(callback,delay);
+    }
+}
+// let fun = debounce(callback,1000);
+const App = ()=>{
+  const [iarr,setIarr] = React.useState([]);
+  const [sleep,setSleep] = React.useState(100); 
+  React.useEffect(()=>{
+    setIarr([...generateArr(120,600)])
+  
+  },[]);
+  const callback = (e)=>{
+    // console.log("callback is called")
+    setSleep(e.target.value);
+  }
+  const handlesleep = (e)=>{
+      
+      debounce(()=>{return callback(e)},200)()
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  }
+    return (<div>
+      <Navbar sleep={handlesleep}/>
+      {/* {console.log("render")} */}
+      <BubbleSort iarr={iarr} sleep={sleep}/>
+</div>);
+};
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(<App/>,document.querySelector('#root'));
