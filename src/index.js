@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import "./index.css"
 import BubbleSort from './algorithms/bubbleSort';
+import MergeSort from './algorithms/mergeSort';
 import Navbar from './Navbar';
 import { generateArr } from './algorithms/helpers';
 // function debounce(callback, time){
@@ -23,8 +24,8 @@ const App = ()=>{
   const [iarr,setIarr] = React.useState([]);
   const [sleep,setSleep] = React.useState(100); 
   React.useEffect(()=>{
-    setIarr([...generateArr(120,600)])
-  
+    setIarr([...generateArr(205,680)])
+    
   },[]);
   const callback = (e)=>{
     // console.log("callback is called")
@@ -37,8 +38,8 @@ const App = ()=>{
   }
     return (<div>
       <Navbar sleep={handlesleep}/>
-      {/* {console.log("render")} */}
-      <BubbleSort iarr={iarr} sleep={sleep}/>
+      {/* {console.log("render index.js",iarr)} */}
+      <MergeSort iarr={iarr} sleep={1000}/>
 </div>);
 };
 
